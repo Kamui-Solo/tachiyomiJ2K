@@ -15,6 +15,12 @@
     <!--====-->
     <style name="Theme.ActionBar.Tab" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <style name="CustomActionModeStyle" parent="Base.Widget.AppCompat.ActionMode">
+        <item name="background">@drawable/action_mode_bg</item>
+        <item name="android:tint">@color/red_error</item>
+        <item name="backgroundSplit">@color/red_error</item>
+    </style>
+
     <!--===========-->
     <!--AlertDialog-->
     <!--===========-->
@@ -137,6 +143,8 @@
         <item name="android:layout_margin">@dimen/fab_margin</item>
         <item name="android:scaleType">fitCenter</item>
         <item name="layout_anchorGravity">bottom|right|end</item>
+        <item name="tint">@color/md_white_1000</item>
+        <item name="backgroundTint">?attr/colorAccent</item>
         <item name="android:tint">@color/md_white_1000</item>
     </style>
 
@@ -148,6 +156,8 @@
         <item name="android:scaleType">fitCenter</item>
         <item name="layout_anchorGravity">bottom|right|end</item>
         <item name="android:tint">@color/md_white_1000</item>
+        <item name="tint">@color/md_white_1000</item>
+        <item name="backgroundTint">?attr/colorAccent</item>
         <item name="layout_behavior">eu.kanade.tachiyomi.widget.FABMoveBehaviour</item>
     </style>
 
