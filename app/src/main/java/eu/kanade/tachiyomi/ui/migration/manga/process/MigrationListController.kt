@@ -29,6 +29,7 @@ import eu.kanade.tachiyomi.ui.migration.MigrationMangaDialog
 import eu.kanade.tachiyomi.ui.migration.SearchController
 import eu.kanade.tachiyomi.util.RecyclerWindowInsetsListener
 import eu.kanade.tachiyomi.util.await
+import eu.kanade.tachiyomi.util.getResourceColor
 import eu.kanade.tachiyomi.util.launchUI
 import eu.kanade.tachiyomi.util.syncChaptersWithSource
 import eu.kanade.tachiyomi.util.toast
@@ -401,9 +402,13 @@ class MigrationListController(bundle: Bundle? = null) : BaseController(bundle),
                 resources!!, R.drawable.ic_done_white_24dp, null
             )
         }
-        val translucentWhite = ColorUtils.setAlphaComponent(Color.WHITE, 127)
-        menuCopy.icon?.setTint(if (allMangasDone) Color.WHITE else translucentWhite)
-        menuMigrate?.icon?.setTint(if (allMangasDone) Color.WHITE else translucentWhite)
+
+        menuCopy.icon.mutate()
+        menuMigrate.icon.mutate()
+        val tintColor = activity?.getResourceColor(R.attr.actionBarTintColor) ?: Color.WHITE
+        val translucentWhite = ColorUtils.setAlphaComponent(tintColor, 127)
+        menuCopy.icon?.setTint(if (allMangasDone) tintColor else translucentWhite)
+        menuMigrate?.icon?.setTint(if (allMangasDone) tintColor else translucentWhite)
         menuCopy.isEnabled = allMangasDone
         menuMigrate.isEnabled = allMangasDone
     }
