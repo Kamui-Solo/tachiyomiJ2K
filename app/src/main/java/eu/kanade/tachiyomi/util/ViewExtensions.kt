@@ -22,6 +22,9 @@ import com.amulyakhare.textdrawable.TextDrawable
 import eu.kanade.tachiyomi.R
 import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.google.android.material.snackbar.Snackbar
+import eu.kanade.tachiyomi.data.preference.PreferencesHelper
+import uy.kohesive.injekt.Injekt
+import uy.kohesive.injekt.api.get
 import kotlin.math.min
 
 /**
@@ -42,8 +45,13 @@ fun View.getCoordinates() = Point((left + right) / 2, (top + bottom) / 2)
 fun View.snack(message: String, length: Int = Snackbar.LENGTH_SHORT, f: (Snackbar.() ->
 Unit)? = null): Snackbar {
     val snack = Snackbar.make(this, message, length)
-    val textView: TextView = snack.view.findViewById(com.google.android.material.R.id.snackbar_text)
-    textView.setTextColor(context.getResourceColor(R.attr.snackbar_text))
+    val theme =Injekt.get<PreferencesHelper>().theme()
+    if (theme == 3 || theme == 6) {
+        val textView: TextView =
+            snack.view.findViewById(com.google.android.material.R.id.snackbar_text)
+        textView.setTextColor(context.getResourceColor(R.attr.snackbar_text))
+        snack.config(context)
+    }
    /* when {
         Build.VERSION.SDK_INT >= 23 ->  {
             val leftM = if (this is CoordinatorLayout) 0 else rootWindowInsets.systemWindowInsetLeft
@@ -54,17 +62,16 @@ Unit)? = null): Snackbar {
         }
         else -> snack.config(context)
     }*/
-    snack.config(context)
     if (f != null) {
         snack.f()
     }
    // if (Build.VERSION.SDK_INT < 23) {
-        val view = if (this !is CoordinatorLayout) this else snack.view
+/*        val view = if (this !is CoordinatorLayout) this else snack.view
         view.doOnApplyWindowInsets { _, insets, _ ->
             snack.view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 bottomMargin = 12 + insets.systemWindowInsetBottom
             }
-        }
+        }*/
     /*}
     else {
         snack.view.doOnApplyWindowInsets { _,_,_ -> }

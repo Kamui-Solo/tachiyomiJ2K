@@ -6,6 +6,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import eu.davidea.flexibleadapter.FlexibleAdapter
@@ -35,7 +36,7 @@ import uy.kohesive.injekt.injectLazy
  * Fragment containing the library manga for a certain category.
  */
 class LibraryCategoryView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
-        FrameLayout(context, attrs),
+        CoordinatorLayout(context, attrs),
         FlexibleAdapter.OnItemClickListener,
         FlexibleAdapter.OnItemLongClickListener,
         FlexibleAdapter.OnItemMoveListener,
@@ -122,7 +123,7 @@ class LibraryCategoryView @JvmOverloads constructor(context: Context, attrs: Att
             if (!LibraryUpdateService.isRunning(context)) {
                 LibraryUpdateService.start(context, category)
                 controller.snack?.dismiss()
-                controller.snack = swipe_refresh.snack(R.string.updating_category)
+                controller.snack = snack(R.string.updating_category)
             }
             // It can be a very long operation, so we disable swipe refresh and show a toast.
             swipe_refresh.isRefreshing = false
